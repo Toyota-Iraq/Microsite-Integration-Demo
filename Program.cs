@@ -30,6 +30,7 @@ var microWebsitePaths = new List<string>
     "/en/urban-cruiser",
     "/en/almost-toyota",
     "/club/en",
+    "/en/dream",
 
     "/ar/corolla",
     "/ar/crown",
@@ -38,6 +39,7 @@ var microWebsitePaths = new List<string>
     "/ar/urban-cruiser",
     "/ar/almost-toyota",
     "/club/ar",
+    "/ar/dream",
 
     "/ku/corolla",
     "/ku/crown",
@@ -46,6 +48,7 @@ var microWebsitePaths = new List<string>
     "/ku/urban-cruiser",
     "/ku/almost-toyota",
     "/club/ku",
+    "/ku/dream",
 };
 
 foreach (var microWebsitePath in microWebsitePaths)
