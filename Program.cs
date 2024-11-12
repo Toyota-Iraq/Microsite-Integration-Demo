@@ -1,3 +1,6 @@
+using NetEscapades.AspNetCore.SecurityHeaders;
+using NetEscapades.AspNetCore.SecurityHeaders.Headers;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient(); // Register HttpClient for making requests to external pages
 
@@ -5,6 +8,25 @@ builder.Services.AddHttpClient(); // Register HttpClient for making requests to 
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Configure CSP
+var policyCollection = new HeaderPolicyCollection()
+    .AddContentSecurityPolicy(builder =>
+    {
+        builder.AddDefaultSrc().Self();
+        builder.AddScriptSrc().Self().From("https://tiq-website.azurewebsites.net").UnsafeInline();
+        builder.AddStyleSrc().Self().From("https://tiq-website.azurewebsites.net").UnsafeInline();
+        builder.AddImgSrc().Self().From("https://tiq-website.azurewebsites.net").Data();
+        builder.AddConnectSrc().Self().From("https://tiq-website.azurewebsites.net");
+        builder.AddFontSrc().Self().From("https://tiq-website.azurewebsites.net");
+        builder.AddObjectSrc().None();
+        builder.AddFormAction().Self();
+        builder.AddFrameAncestors().None();
+        builder.AddBaseUri().Self();
+        builder.AddFrameSrc().Self();
+    });
+
+app.UseSecurityHeaders(policyCollection);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
